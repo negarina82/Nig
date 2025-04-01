@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آریسا ور | فروشگاه آنلاین</title>
+    <style>
+        body { font-family: Arial, sans-serif; direction: rtl; text-align: right; background-color: #f8f8f8; }
+        .container { width: 80%; margin: auto; padding: 20px; }
+        .header { text-align: center; padding: 20px; }
+        .header img { width: 200px; }
+        .categories { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+        .category { background: #ff4757; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .products { display: flex; flex-wrap: wrap; justify-content: center; }
+        .product { width: 30%; margin: 10px; padding: 15px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; display: none; }
+        .product img { width: 100%; border-radius: 10px; }
+        button { background-color: #ff4757; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="file-HBNeXsfeZyoVJ1m9yYq33H" alt="آریسا ور">
+    </div>
+    <div class="container">
+        <h2>دسته‌بندی محصولات</h2>
+        <div class="categories">
+            <div class="category" onclick="showCategory('crop')">کراپ</div>
+            <div class="category" onclick="showCategory('body')">بادی</div>
+            <div class="category" onclick="showCategory('top')">تاپ</div>
+        </div>
+        <div class="products">
+            <div class="product crop">
+                <img src="crop1.jpg" alt="کراپ 1">
+                <h3>کراپ مدل 1</h3>
+                <p>قیمت: 250,000 تومان</p>
+                <button onclick="addToCart('کراپ مدل 1', 250000)">افزودن به سبد خرید</button>
+            </div>
+            <div class="product crop">
+                <img src="crop2.jpg" alt="کراپ 2">
+                <h3>کراپ مدل 2</h3>
+                <p>قیمت: 280,000 تومان</p>
+                <button onclick="addToCart('کراپ مدل 2', 280000)">افزودن به سبد خرید</button>
+            </div>
+            <div class="product body">
+                <img src="body1.jpg" alt="بادی 1">
+                <h3>بادی مدل 1</h3>
+                <p>قیمت: 300,000 تومان</p>
+                <button onclick="addToCart('بادی مدل 1', 300000)">افزودن به سبد خرید</button>
+            </div>
+            <div class="product top">
+                <img src="top1.jpg" alt="تاپ 1">
+                <h3>تاپ مدل 1</h3>
+                <p>قیمت: 200,000 تومان</p>
+                <button onclick="addToCart('تاپ مدل 1', 200000)">افزودن به سبد خرید</button>
+            </div>
+        </div>
+        <h2>سبد خرید</h2>
+        <ul id="cart"></ul>
+        <form action="upload.php" method="POST" enctype="multipart/form-data">
+            <label>آپلود فیش پرداخت:</label>
+            <input type="file" name="payment_receipt" accept="image/*" required>
+            <button type="submit">ثبت سفارش</button>
+        </form>
+    </div>
+    <script>
+        let cart = [];
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            updateCart();
+        }
+        function updateCart() {
+            let cartList = document.getElementById('cart');
+            cartList.innerHTML = '';
+            cart.forEach(item => {
+                let li = document.createElement('li');
+                li.textContent = `${item.product} - ${item.price} تومان`;
+                cartList.appendChild(li);
+            });
+        }
+        function showCategory(category) {
+            document.querySelectorAll('.product').forEach(product => {
+                product.style.display = 'none';
+            });
+            document.querySelectorAll('.' + category).forEach(product => {
+                product.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>
